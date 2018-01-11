@@ -1,0 +1,55 @@
+<!--
+	web图像常见的应用策略与技巧 From.tencent.isux.练小习
+	link：https://isux.tencent.com/articles/59.html
+	仅做个人学习使用
+	-->
+<!--
+	固定尺寸图像
+	基于设备像素比选择，很多网站logo就是固定宽度图像的一个例子，不管viewport的宽度如何，始终保持相同的宽度。
+-->
+<style>
+	background-image: image-set(url(test.jpg) 1x,url(test2.jpg) 2x);
+</style>
+<body>
+	<img srcset="test.jpg 1.5x, test2.jpg 2x" src="test.jpg" alt="" />
+</body>
+
+<!--
+	不固定尺寸图像
+
+	我们使用srcset搭配w描述符以及sizes属性
+	w描述符告诉浏览器列表中的每个图象的质量。sizes属性是一个包含两个值的，由逗号分隔的列表。根据最新规范，如果srcset中任何图像使用了w描述符，那么必须要设置sizes属性。
+	sizes属性有两个值：第一个是媒体条件；第二个是源图尺寸值，在特定媒体条件下，此值决定了图片的宽度。
+-->
+<img srcset="360.jpg 360w,
+            768.jpg 768w,
+            1200.jpg 1200w,
+            1920.jpg 1920w"
+     sizes="
+     (max-width: 360px) 100vw,
+     (max-width: 768px) 90vw,
+     (max-width: 1980px) 80vw,
+     768px"
+     src="360.jpg" alt="">
+
+<!--
+	picture元素，可精确把控
+	picture元素就像是图像和其源的容器。浏览器仍然需要img元素，用来表明需要加载图片，如果没有img，那么什么都不会渲染。source为浏览器提供了要显示图像的供选版本。
+	适用场景为：在一个精确特定的转效点（breakpoint）需要显示一个特定的图像时。使用picture元素选择图像，不会有歧义，理解起来也更直观。
+-->
+<picture>
+  <source media="(min-width: 960px)" srcset=960.jpg">
+  <source media="(min-width: 768px)" srcset="768.jpg">
+  <img src="360.jpg" alt="">
+</picture>
+
+<!--
+	特殊格式的图像应用与回退
+-->
+<picture>
+  <source type="image/vnd.ms-photo" src="test.jxr">
+  <source type="image/jp2" src="test.jp2">
+  <source type="image/webp" src="test.webp">
+  <img src="test.png" alt="test">
+</picture>
+
