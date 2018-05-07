@@ -1,0 +1,30 @@
+<!-- 方法一：<img>通过usemap映射到<map>的circle形<area>。-->
+<img src="images/lanlvseImg.png" usemap="#Map" />  
+<map name="Map" id="Map">
+	<area shape="circle" coords="100,100,50" href="http://www.baidu.com" target="_blank"/>
+</map>
+
+<!-- 方法二：设置div的border-radius:50%。-->
+<style type="text/css">
+#circle{  
+    background:red;  
+    width:100px;  
+    height:100px;  
+    border-radius:50%;  
+}  
+</style>
+<div id="circle"></div>  
+
+<!-- 方法三：JS实现，获取鼠标点击位置坐标，判断其到圆点的距离是否不大于圆的半径，来判断点击位置是否在圆内。 -->
+<script>
+document.onclick = function(e) {  
+	var r = 50; 
+	var x1 = 100;
+	var y1 = 100;
+	var x2= e.clientX;
+	var y2= e.clientY;  
+	var distance = Math.abs(Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)));  
+	if (distance <= 50)
+		alert("Yes!");  
+}
+</script>
